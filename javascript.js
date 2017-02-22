@@ -12,7 +12,7 @@ var Luke = {
 var Han = {
     name: "Han Solo",
     id: "han",
-    attack: 8,
+    attack: 25,
     hp: 110,
     img: "images/han.png",
     player: false,
@@ -128,11 +128,7 @@ function battle() {
     $("#attack").click(function () {
         attack();
         checkForOppDefeat();
-        checkForWin();
-    });
-    $("#defeated").click(function () {
-        player.defeated = true;
-        checkForLoss();
+        checkForEndGame();
     });
 }
 
@@ -143,8 +139,10 @@ function attack() {
     }
 
     currentOpponent.hp -= (player.attack * attackCounter);
+    player.hp -= currentOpponent.attack;
     console.log("Attack", player.attack * attackCounter);
     console.log("Opp HP", currentOpponent.hp);
+    console.log("Player HP", player.hp);
     attackCounter++;
 }
 
@@ -162,7 +160,14 @@ function checkForOppDefeat(){
     }
 }
 
-function checkForWin() {
+function checkForEndGame() {
+
+    if(player.hp < 1){
+        alert("You Lose.");
+        return;
+    }
+
+
     for(var i in characterArray)
     {
         if(characterArray[i].defeated == false && characterArray[i].opp == true){
