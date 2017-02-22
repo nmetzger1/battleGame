@@ -1,0 +1,19 @@
+--Character Select
+	--Display Image
+	--Display Character Stats
+	--After character is selected, move to play area
+	-- Display opponents in Opponent Area
+--Play Area
+	--Display chosen character
+		--Attack value
+		--Hit Points remaining
+		--Attack Button
+	--Current Opponent
+		--Attack value
+		--Hit Points remaining
+--Opponent
+	--Display all characters not chosen by user
+	--Display character stats
+	--After opponent is clicked, move to play area
+		--Cannot click until previous fight is over
+	--Hide opponent after selected
