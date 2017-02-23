@@ -1,0 +1,16 @@
+.img{
+    position: relative;
+    display: inline-block;
+    margin: 1%;
+    border: solid 2px blue;
+}
+
+.stats{
+    width: 250px;
+    text-align: center;
+    background-color: blue;
+    color: white;
+    top: 220px;
+    font-size: x-large;
+    position: absolute;
+}
