@@ -2,18 +2,19 @@
 var boshek = {
     name: "BoShek",
     id: "boshek",
-    attack: 8,
-    hp: 110,
+    attack: 0,
+    hp: 0,
     img: "images/boshek.png",
     player: false,
     opp: false,
     defeated: false
 };
+
 var lobot = {
     name: "Lobot",
     id: "lobot",
-    attack: 25,
-    hp: 50,
+    attack: 0,
+    hp: 0,
     img: "images/lobot.png",
     player: false,
     opp: false,
@@ -23,8 +24,8 @@ var lobot = {
 var porkins = {
     name: "Jek Porkins",
     id: "porkins",
-    attack: 10,
-    hp: 93,
+    attack: 0,
+    hp: 0,
     img: "images/porkins.png",
     player: false,
     opp: false,
@@ -34,8 +35,8 @@ var porkins = {
 var max = {
     name: "Max Rebo",
     id: "max",
-    attack: 13,
-    hp: 80,
+    attack: 0,
+    hp: 0,
     img: "images/max.png",
     player: false,
     opp: false,
@@ -60,12 +61,43 @@ function gameStart() {
     currentOpponent = {};
     attackCounter = 1;
 
+    setPlayerStats();
+
+    $(".char-select").html("<h1>Player Select</h1>");
     for(var i in characterArray){
         createCharacterDiv(characterArray[i],"char-select")
     }
+
+    $(".middle").empty();
+    $(".player").empty();
+    $(".opp-list").empty();
+    $(".current-opponent").empty();
+
+
     playerSelect();
 }
 
+function setPlayerStats(){
+
+    boshek.hp = 107;
+    boshek.attack = 8;
+
+    lobot.hp = 50;
+    lobot.attack = 25;
+
+    porkins.attack =  10;
+    porkins.hp =  93;
+
+    max.attack = 13;
+    max.hp = 80;
+
+    for(var i in characterArray){
+        characterArray[i].defeated = false;
+        characterArray[i].opp = false;
+        characterArray[i].player = false;
+    }
+
+}
 
 function playerSelect() {
     $(".img-div-char-select").click(function (charClick) {
@@ -92,9 +124,10 @@ function playerSelect() {
                 player = lobot;
         }
 
-        $('<img src="' + player.img + '">').appendTo("#player-img");
-        $('.player-stats').html("Atk: " + player.attack + " HP: " + player.hp);
+        $(".player").append("<h2>" + player.name + "</h2>"); //Add character name to play area
+        createCharacterDiv(player, "player"); //Creates player image/stats element
 
+        $(".opp-list").append("<h1>Your Opponents</h1>");
         for(var i in characterArray)
         {
             if(characterArray[i].player == false){
@@ -104,6 +137,7 @@ function playerSelect() {
         }
 
         isPlayerSelected = true;
+        $(".char-select").html("<h1>Fight!</h1>");
         opponentSelect();
     });
 }
@@ -129,16 +163,23 @@ function opponentSelect() {
                 currentOpponent = lobot;
         }
 
+        $(".middle").append("<h1>Vs.</h1>"); //Add Vs. Text
+        $(".current-opponent").append("<h2>" + currentOpponent.name + "</h2>");
         createCharacterDiv(currentOpponent,"current-opponent");
         isOppSelected = true;
         $("#div-opp-list-" + currentOpponent.id).hide();
 
+        battle();
+
     });
 
-    battle();
+
 }
 
 function battle() {
+
+    $(".middle").append("<button class='btn btn-danger btn-lg' id='attack'>Attack</button>");
+
     $("#attack").click(function () {
         attack();
         checkForOppDefeat();
@@ -167,14 +208,15 @@ function attack() {
     currentOpponent.hp -= (player.attack * attackCounter);
     player.hp -= currentOpponent.attack;
     attackCounter++;
-    $('.player-stats').html("Atk: " + (player.attack * attackCounter) + " HP: " + player.hp);
+    $('.panel-player').html("Atk: " + (player.attack * attackCounter) + " HP: " + player.hp);
     $('.panel-current-opponent').html("Atk: " + currentOpponent.attack + " HP: " + currentOpponent.hp);
 }
 
 
 function checkForOppDefeat(){
     if(currentOpponent.hp < 1){
-        $(".img-div-current-opponent").hide();
+        $(".current-opponent").empty();
+        $(".middle").empty();
         isOppSelected = false;
 
         for(var i in characterArray){
@@ -188,7 +230,8 @@ function checkForOppDefeat(){
 function checkForEndGame() {
 
     if(player.hp < 1){
-        alert("You Lose.");
+        $(".middle").html("<h2>You Lost.</h2>");
+        endGame();
         return;
     }
 
@@ -200,11 +243,14 @@ function checkForEndGame() {
         }
     }
 
-    alert("You Win!");
+    $(".middle").html("<h2>The Winner Is You!</h2>");
+    endGame();
 }
 
-function checkForLoss(){
-    if(player.defeated){
-        alert("You Lose!");
-    }
+function endGame() {
+    $(".char-select").html("<h1>Game Over</h1>");
+    $(".middle").append("<button class='btn btn-primary btn-lg' id='restart'>Restart Game</button>");
+    $("#restart").click(function () {
+        gameStart();
+    })
 }

@@ -5,6 +5,7 @@
     <title>Star Wars Battle</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script src="javascript.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
@@ -13,23 +14,21 @@
 <body>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12 char-select">
-
-        </div>
+        <div class="col-md-12 char-select"></div>
     </div>
     <div class="row">
         <div class="col-md-8">
-            <h2>Play Area</h2>
-            <div class="col-md-5 player">
-                <span id="player-img"></span>
-                <p class="stats player-stats"></p>
-            </div>
-            <div class="col-md-2"><button id="attack">Attack</button></div>
-            <div class="col-md-5 current-opponent">
-            </div>
+            <div class="col-md-5 player"></div>
+            <div class="col-md-2 middle"></div>
+            <div class="col-md-5 current-opponent"></div>
         </div>
         <div class="col-md-4 opp-list">
             <h2>Opponents</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3 instructions">
+            <h4>You must defeat all other fighters in order to win the game. Your attack power will increase after each attack.  Choose the order of your opponents wisely.  You will not regain health after each battle.</h4>
         </div>
     </div>
 </div>
