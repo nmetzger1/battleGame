@@ -19,7 +19,7 @@ h1, h2 {
     position: relative;
     display: inline-block;
     margin: 1%;
-    border: solid 2px blue;
+    border: solid 3px blue;
 }
 
 .stats{
