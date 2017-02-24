@@ -250,6 +250,7 @@ function checkForEndGame() {
 function endGame() {
     $(".char-select").html("<h1>Game Over</h1>");
     $(".middle").append("<button class='btn btn-primary btn-lg' id='restart'>Restart Game</button>");
+    isOppSelected = true;
     $("#restart").click(function () {
         gameStart();
     })
