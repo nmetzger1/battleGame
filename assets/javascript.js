@@ -106,7 +106,7 @@ function setPlayerStats(){
 
 //Handles player selection portion of the game
 function playerSelect() {
-    $(".img-div-char-select").click(function (charClick) {
+    $(".img-div-char-select").click(function () {
 
 
         //prevents user from selecting a player if one is already selected
@@ -114,7 +114,7 @@ function playerSelect() {
             return;
         }
 
-        var chosenCharacter = charClick.currentTarget.id; //not sure how this works, but it grabs the parent div when the image or stats elements are clicked
+        var chosenCharacter = $(this).attr('id'); //gets id of element with click listener
 
         //Sets current plater based on user click
         switch (chosenCharacter){
@@ -163,14 +163,14 @@ function opponentSelect() {
     $(".game-info").html("<h1>Choose Your Opponent</h1>"); //shows message while waiting for opp. to be picked
 
 
-    $(".img-div-opp-list").click(function (oppClick) {
+    $(".img-div-opp-list").click(function () {
 
         //prevents user from selecting opponent if one is already picked
         if (isOppSelected) {
             return;
         }
 
-        var chosenOpponent = oppClick.currentTarget.id; //sets opponent to character user clicked
+        var chosenOpponent = $(this).attr('id'); //sets opponent to character user clicked
 
         switch (chosenOpponent) {
             case "div-opp-list-boshek":
