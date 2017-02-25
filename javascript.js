@@ -102,20 +102,22 @@ function setPlayerStats(){
 function playerSelect() {
     $(".img-div-char-select").click(function (charClick) {
 
+        var chosenCharacter = charClick.currentTarget.id;
+
         if(isPlayerSelected){
             return;
         }
 
-        switch (charClick.target.id){
-            case "img-char-select-boshek":
+        switch (chosenCharacter){
+            case "div-char-select-boshek":
                 boshek.player = true;
                 player = boshek;
                 break;
-            case "img-char-select-max":
+            case "div-char-select-max":
                 max.player = true;
                 player = max;
                 break;
-            case "img-char-select-porkins":
+            case "div-char-select-porkins":
                 porkins.player = true;
                 player = porkins;
                 break;
@@ -137,26 +139,33 @@ function playerSelect() {
         }
 
         isPlayerSelected = true;
-        $(".char-select").html("<h1>Fight!</h1>");
+        $(".char-select").empty();
+
         opponentSelect();
     });
 }
 
 function opponentSelect() {
+
+    checkForEndGame();
+    $(".game-info").html("<h1>Choose Your Opponent</h1>");
+
     $(".img-div-opp-list").click(function (oppClick) {
 
         if (isOppSelected) {
             return;
         }
 
-        switch (oppClick.target.id) {
-            case "img-opp-list-boshek":
+        var chosenOpponent = oppClick.currentTarget.id;
+
+        switch (chosenOpponent) {
+            case "div-opp-list-boshek":
                 currentOpponent = boshek;
                 break;
-            case "img-opp-list-max":
+            case "div-opp-list-max":
                 currentOpponent = max;
                 break;
-            case "img-opp-list-porkins":
+            case "div-opp-list-porkins":
                 currentOpponent = porkins;
                 break;
             default:
@@ -164,7 +173,7 @@ function opponentSelect() {
         }
 
         $(".middle").append("<h1>Vs.</h1>"); //Add Vs. Text
-        $(".current-opponent").append("<h2>" + currentOpponent.name + "</h2>");
+        $(".current-opponent").append("<h2>" + currentOpponent.name + "</h2>"); //Add Opponent Name to Screen
         createCharacterDiv(currentOpponent,"current-opponent");
         isOppSelected = true;
         $("#div-opp-list-" + currentOpponent.id).hide();
@@ -176,8 +185,10 @@ function opponentSelect() {
 
 }
 
+//Is called after both player & opponent have been selected
 function battle() {
 
+    $(".game-info").html("<h1>Fight!</h1>");
     $(".middle").append("<button class='btn btn-danger btn-lg' id='attack'>Attack</button>");
 
     $("#attack").click(function () {
@@ -187,6 +198,8 @@ function battle() {
     });
 }
 
+
+//This function creates all of the character divs and places it in the chosen panel
 function createCharacterDiv(object, panel){
 
     var div = $("<div class='img img-div-" + panel + "' id='div-" + panel + "-" + object.id + "'>");
@@ -198,7 +211,16 @@ function createCharacterDiv(object, panel){
 
 }
 
+//Ths function finds the parent div and returns its name
+function getParent(event){
+    var element = document.getElementById(event.target.id);
+    var parent = element.parentNode;
+    console.log(parent.id);
+    return parent.id;
+}
 
+
+//Is called when the Attack button is pressed
 function attack() {
 
     if(isOppSelected == false){
@@ -224,18 +246,23 @@ function checkForOppDefeat(){
                 characterArray[i].defeated = true;
             }
         }
+
+        opponentSelect();
     }
+
+
 }
 
 function checkForEndGame() {
 
+    //Check if Player is Defeated
     if(player.hp < 1){
         $(".middle").html("<h2>You Lost.</h2>");
         endGame();
         return;
     }
 
-
+    //If any opponent is not defeated, leave function
     for(var i in characterArray)
     {
         if(characterArray[i].defeated == false && characterArray[i].opp == true){
@@ -248,6 +275,7 @@ function checkForEndGame() {
 }
 
 function endGame() {
+    $(".game-info").empty();
     $(".char-select").html("<h1>Game Over</h1>");
     $(".middle").append("<button class='btn btn-primary btn-lg' id='restart'>Restart Game</button>");
     isOppSelected = true;

@@ -1,18 +1,24 @@
 body {
+    background-image: url("images/background.jpg");
     text-align: center;
 }
 
 h1, h2 {
     font-family: 'Orbitron', sans-serif;
+    color: goldenrod;
 }
 
 .middle{
     margin-top: 100px;
 }
 
+h4{
+    font-size: 24px;
+}
+
 .instructions{
     margin-top: 5%;
-    border: solid 2px black;
+    color: darkorange;
 }
 
 .img{
