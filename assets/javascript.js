@@ -4,7 +4,7 @@ var boshek = {
     id: "boshek",
     attack: 0,
     hp: 0,
-    img: "images/boshek.png",
+    img: "assets/images/boshek.png",
     player: false,
     opp: false,
     defeated: false
@@ -15,7 +15,7 @@ var lobot = {
     id: "lobot",
     attack: 0,
     hp: 0,
-    img: "images/lobot.png",
+    img: "assets/images/lobot.png",
     player: false,
     opp: false,
     defeated: false
@@ -26,7 +26,7 @@ var porkins = {
     id: "porkins",
     attack: 0,
     hp: 0,
-    img: "images/porkins.png",
+    img: "assets/images/porkins.png",
     player: false,
     opp: false,
     defeated: false
@@ -37,7 +37,7 @@ var max = {
     id: "max",
     attack: 0,
     hp: 0,
-    img: "images/max.png",
+    img: "assets/images/max.png",
     player: false,
     opp: false,
     defeated: false
